@@ -34,6 +34,33 @@ router.post('/index', (req, res, next) => {
         })
 });
 
+// EDIT Celebs
+
+router.get('/:celeb_id/edit', (req, res, next) =>   {
+    Celeb.findById(req.params.celeb_id)
+        .then((celeb) => {
+            res.render('celebrities/edit', {celeb: celeb});
+        })
+        .catch((error) =>   {
+            console.log(error);
+        })
+})
+
+router.post("/:celeb_id", (req, res, next) => {
+    const { name, occupation, catchPhrase } = req.body;
+    Celeb.update(
+      { celeb_id: req.query.celeb_id },
+      { $set: { name, occupation, catchPhrase }}
+    )
+    .then(() => {
+      res.redirect('/celebrities/index');
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+  });
+
+
 // DELETE Celebs
 
 router.post('/:celeb_id/delete', (req, res, next) => {
@@ -44,7 +71,7 @@ router.post('/:celeb_id/delete', (req, res, next) => {
         .catch((error) => {
             console.log(error);
         })
-    });
+});
 
 // DETAILS for each celeb
 

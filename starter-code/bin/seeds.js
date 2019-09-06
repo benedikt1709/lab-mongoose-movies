@@ -5,20 +5,41 @@ const dbName = 'celebrity-movies-lab';
 mongoose.connect(`mongodb://localhost/${dbName}`);
 
 const celebList = [
+//   {
+//     name: "Elvis",
+//     occupation: "Singer",
+//     catchPhrase: "Hello"
+//   },
+//   {
+//     name: "Elton John",
+//     occupation: "Singer",
+//     catchPhrase: "Rocketman"
+//   }
+]
+
+// Celeb.create(celebList, (err) => {
+//     if (err) { throw(err) }
+//     console.log(`Created ${celebList.length} entries`)
+//     mongoose.connection.close();
+//   });
+
+const Movie = require('../models/movie');
+
+const movieList = [
   {
-    name: "Elvis",
-    occupation: "Singer",
-    catchPhrase: "Hello"
+    title: "Shining",
+    genre: "Horror",
+    plot: "A family, a hotel."
   },
   {
-    name: "Elton John",
-    occupation: "Singer",
-    catchPhrase: "Rocketman"
+    title: "ES",
+    genre: "Horror",
+    plot: "A clown, some kids."
   }
 ]
 
-Celeb.create(celebList, (err) => {
+Movie.create(movieList, (err) => {
     if (err) { throw(err) }
-    console.log(`Created ${celebList.length} entries`)
+    console.log(`Created ${movieList.length} entries`)
     mongoose.connection.close();
   });
