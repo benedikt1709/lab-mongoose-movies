@@ -3,9 +3,9 @@ const router = express.Router();
 
 const Movie = require('../models/movie')
 
-// GET Movie
+// GET Movies
 
-router.get('/movies/index', (req, res, next) => {
+router.get('/index', (req, res, next) => {
     Movie.find()
         .then(allTheMoviesFromDB => {
             console.log('Retrieved movies from DB:', allTheMoviesFromDB.length);
@@ -16,15 +16,15 @@ router.get('/movies/index', (req, res, next) => {
         })
 });
 
-// ADD Movie
+// ADD Movies
 
 router.get('/new', (req, res, next) => {
     res.render('movies/new');
 });
 
 router.post('/index', (req, res, next) => {
-    const { name, occupation, catchPhrase } = req.body;
-    const newMovie = new Movie({ name, occupation, catchPhrase })
+    const { title, genre, plot, image } = req.body;
+    const newMovie = new Movie({ title, genre, plot, image })
     newMovie.save()
         .then(() => {
             res.redirect('/movies/index');
@@ -34,7 +34,7 @@ router.post('/index', (req, res, next) => {
         })
 });
 
-// EDIT Movie
+// EDIT Movies
 
 router.get('/:movie_id/edit', (req, res, next) =>   {
     Movie.findById(req.params.movie_id)
@@ -46,11 +46,11 @@ router.get('/:movie_id/edit', (req, res, next) =>   {
         })
 })
 
-router.post("/:movie_id", (req, res, next) => {
-    const { title, genre, plot } = req.body;
+router.post("/edit", (req, res, next) => {
+    const { title, genre, plot, image, movie_id } = req.body;
     Movie.update(
-      { movie_id: req.query.movie_id },
-      { $set: { title, genre, plot }}
+      { _id: movie_id },
+      { $set: { title, genre, plot, image }}
     )
     .then(() => {
       res.redirect('/movies/index');

@@ -23,8 +23,8 @@ router.get('/new', (req, res, next) => {
 });
 
 router.post('/index', (req, res, next) => {
-    const { name, occupation, catchPhrase } = req.body;
-    const newCeleb = new Celeb({ name, occupation, catchPhrase })
+    const { name, occupation, catchPhrase, image } = req.body;
+    const newCeleb = new Celeb({ name, occupation, catchPhrase, image })
     newCeleb.save()
         .then(() => {
             res.redirect('/celebrities/index');
@@ -46,11 +46,11 @@ router.get('/:celeb_id/edit', (req, res, next) =>   {
         })
 })
 
-router.post("/:celeb_id", (req, res, next) => {
-    const { name, occupation, catchPhrase } = req.body;
+router.post("/edit", (req, res, next) => {
+    const { name, occupation, catchPhrase, image, celeb_id } = req.body;
     Celeb.update(
-      { celeb_id: req.query.celeb_id },
-      { $set: { name, occupation, catchPhrase }}
+      { _id: celeb_id },
+      { $set: { name, occupation, catchPhrase, image }}
     )
     .then(() => {
       res.redirect('/celebrities/index');

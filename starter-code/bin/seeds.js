@@ -29,7 +29,8 @@ const movieList = [
   {
     title: "Shining",
     genre: "Horror",
-    plot: "A family, a hotel."
+    plot: "A family, a hotel.",
+    image: "https://39m9vk1z5i3x15rspj43y7k8-wpengine.netdna-ssl.com/wp-content/uploads/2017/10/the-shining-film-1300x720.jpg"
   },
   {
     title: "ES",
